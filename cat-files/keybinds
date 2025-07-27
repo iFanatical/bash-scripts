@@ -1,0 +1,24 @@
+Keybinds:
+
+[SUPER]+[ENTER]         open terminal
+[SUPER]+B               open browser
+[SUPER]+E               open file manager
+[SUPER]+D               drun prompt
+[SUPER]+[SHIFT]+C       close window
+[SUPER]+HJKL            move win focus
+[SUPER]+[SHIFT]+HJKL    move window
+[SUPER]+[0-9]           switch workspace
+[SUPER]+[SHIFT]+[0-9]   send window
+[SUPER]+A               swap w/ master
+[SUPER]+[R,M]           special workspace rdp,code
+[SUPER]+[SHIFT]+[R,M]   moveto special workspaces
+
+Submaps:
+[escape]            global
+[ALT]+P             programs
+[ALT]+O             dpms
+[ALT]+R             resize
+[ALT]+[SHIFT]+=     gapresize
+
+System Commands:
+[CTRL]+[ALT]+L      system menu
