@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 $SCRIPTS/Volume.sh --inc
-pkill -RTMIN+6 dwmblocks
+pkill -SIGRTMIN+11 waybar

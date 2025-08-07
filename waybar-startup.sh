@@ -1,20 +1,37 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Kill existing Waybar
+# Prevent multiple instances
+[ "${FLOCKER}" != "$0" ] && exec env FLOCKER="$0" flock -en "$0" "$0" "$@" || :
+
+# Kill existing Waybar instances
 killall waybar
+sleep 1
 
-# Get number of connected monitors
-MONITOR_COUNT=$(hyprctl monitors -j | jq length)
+# Get monitor names from hyprctl
+MONITORS=($(hyprctl monitors -j | jq -r '.[] | .name' | sort -u))
 
-# Use different config depending on number of monitors
-if [ "$MONITOR_COUNT" -eq 1 ]; then
-    # echo "Single monitor setup detected."
-    waybar -c ~/.config/waybar/config-laptop &
-elif [ "$MONITOR_COUNT" -eq 2 ]; then
-    # echo "Dual monitor setup detected."
-    waybar -c ~/.config/waybar/config-dp1 &
-    waybar -c ~/.config/waybar/config-dp2 &
-else
-    # echo "More than two monitors detected."
-    waybar -c ~/.config/waybar/config-any &
-fi
+# Debug: Print all detected monitors
+#echo "Detected monitors: ${MONITORS[@]}"
+
+# Loop through detected monitors and launch appropriate Waybar configs
+for MONITOR in "${MONITORS[@]}"; do
+    echo "Processing monitor: $MONITOR"
+    case "$MONITOR" in
+        "eDP-1")
+            echo "Launching Waybar for eDP-1"
+            waybar -c ~/.config/waybar/config-laptop.jsonc &
+            ;;
+        "DP-1")
+            echo "Launching Waybar for DP-1"
+            waybar -c ~/.config/waybar/config-dp1.jsonc &
+            ;;
+        "DP-2")
+            echo "Launching Waybar for DP-2"
+            waybar -c ~/.config/waybar/config-dp2.jsonc &
+            ;;
+        *)
+            echo "Launching Waybar for unknown monitor: $MONITOR"
+            waybar -c ~/.config/waybar/config-any.jsonc &
+            ;;
+    esac
+done
