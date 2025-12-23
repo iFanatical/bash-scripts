@@ -1,0 +1,2 @@
+
+$TERMINAL --app-id=fanos-troubleshooting -e bash -c 'doas dinitctl restart dinit-user-spawn; read -n 1 -s'

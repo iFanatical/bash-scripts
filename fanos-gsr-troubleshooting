@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+$TERMINAL --app-id=fanos-troubleshooting -e bash -c 'dinitctl -u stop gpu-screen-recorder-ui; dinitctl -u stop gpu-screen-recorder; pkill gsr-ui; pkill gpu-screen; dinitctl -u start gpu-screen-recorder; dinitctl -u start gpu-screen-recorder-ui; read -n 1 -s'
+bash -c fanos-menu

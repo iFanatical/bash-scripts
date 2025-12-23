@@ -1,8 +1,6 @@
 #!/bin/bash
 
-USEDMEM=$(free | awk '/^Mem/ {print $3}')
-TOTALMEM=$(free | awk '/^Mem/ {print $2}')
+USEDMEM=$(free -m | awk '/^Mem/ {print ($3)/1024}' | cut -c-4)g
+TOTALMEM=$(free -m | awk '/^Mem/ {print ($2)/1024}' | cut -c-4)g
 
-PERCENT=$(echo "($USEDMEM * 100) / $TOTALMEM" | bc)
-
-echo "${PERCENT}%"
+echo " $USEDMEM / $TOTALMEM"

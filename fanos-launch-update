@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+$TERMINAL --app-id=fanos-update bash -c "tmux new-session -s pcupdate 'doas pacman -Syu'"
+bash -c fanos-menu

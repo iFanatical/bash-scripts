@@ -28,9 +28,9 @@ get_icon() {
 # Notify
 notify_user() {
     if [[ "$(get_volume)" == "Muted" ]]; then
-        notify-send -e -h string:hlcolor:#8e44adee -h string:x-canonical-private-synchronous:volume_notif -u low -i "$(get_icon)" " Volume:" " Muted"
+        notify-send -e -h string:hlcolor:#a9a1e1ee -h string:x-canonical-private-synchronous:volume_notif -u low -i "$(get_icon)" " Volume:" " Muted"
     else
-        notify-send -e -h string:hlcolor:#8e44adee -h int:value:"$(get_volume | sed 's/%//')" -h string:x-canonical-private-synchronous:volume_notif -u low -i "$(get_icon)" " Volume Level:" " $(get_volume)" &&
+        notify-send -e -h string:hlcolor:#a9a1e1ee -h int:value:"$(get_volume | sed 's/%//')" -h string:x-canonical-private-synchronous:volume_notif -u low -i "$(get_icon)" " Volume Level:" " $(get_volume)" &&
         "$sDIR/Sounds.sh" --volume
     fi
 }
@@ -118,16 +118,12 @@ dec_mic_volume() {
 # Execute accordingly
 if [[ "$1" == "--get" ]]; then
 	get_volume
-	pkill -RTMIN+6 dwmblocks
 elif [[ "$1" == "--inc" ]]; then
 	inc_volume
-	pkill -RTMIN+6 dwmblocks
 elif [[ "$1" == "--dec" ]]; then
 	dec_volume
-	pkill -RTMIN+6 dwmblocks
 elif [[ "$1" == "--toggle" ]]; then
 	toggle_mute
-	pkill -RTMIN+6 dwmblocks
 elif [[ "$1" == "--toggle-mic" ]]; then
 	toggle_mic
 elif [[ "$1" == "--get-icon" ]]; then

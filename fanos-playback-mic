@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+num_cards=$(aplay -l | grep '^card' | wc -l)
+
+for ((i=0; i<num_cards; i++)); do
+    amixer -c $i sset 'Mic' mute >/dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        echo "Muted Mic on card $i"
+    fi
+done

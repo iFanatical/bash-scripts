@@ -11,13 +11,13 @@ get_volume_status() {
     fi
     # define volume stages with icons and check if muted
     if [ "$GETVOL" -eq 0 ] || [ "$MUTCHECK" == "off" ]; then
-        echo " muted"
+        echo -e "  muted"
     elif [ "$GETVOL" -le 33 ]; then
-        echo " $GETVOL%"
+        echo -e "  $GETVOL%"
     elif [ "$GETVOL" -le 66 ]; then
-        echo " $GETVOL%"
+        echo -e "  $GETVOL%"
     else
-        echo " $GETVOL%"
+        echo -e "  $GETVOL%"
     fi
 }
 get_mic_status() {

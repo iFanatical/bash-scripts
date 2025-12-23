@@ -1,0 +1,124 @@
+#!/usr/bin/env bash
+
+# Set to true when going directly to a submenu, so we can exit directly
+BACK_TO_EXIT=false
+
+# rofi configuration
+dir="$HOME/.config/rofi/launchers/type-1/"
+theme="fanos-menu-style-6.rasi"
+rofi_command="rofi -dmenu -theme ${dir}/${theme} -no-fixed-num-lines -yoffset -100 -i -p '$prompt...' '${args[@]}'"
+
+back_to() {
+  local parent_menu="$1"
+
+  if [[ "$BACK_TO_EXIT" == "true" ]]; then
+    exit 0
+  elif [[ -n "$parent_menu" ]]; then
+    "$parent_menu"
+  else
+    show_main_menu
+  fi
+}
+
+menu() {
+  local prompt="$1"
+  local options="$2"
+  local extra="$3"
+  local preselect="$4"
+
+  read -r -a args <<<"$extra"
+
+  if [[ -n "$preselect" ]]; then
+    local index
+    index=$(echo -e "$options" | grep -nxF "$preselect" | cut -d: -f1)
+    if [[ -n "$index" ]]; then
+      args+=("-a" "$index")
+    fi
+  fi
+
+  #echo -e "$options" | rofi -dmenu -theme ${dir}/${theme} -p "${args[@]}"
+  echo -e "$options" | $rofi_command
+}
+
+show_websites_menu() {
+  case $(menu "Websites" "  YouTube\n  Twitch\n󰼁  Jellyfin\n  X\n󰚺  Plex\n  LinkedIn\n󰊫  Gmail\n󰢌  Reminders\n  Drive") in
+  *YouTube*) fanos-launch-webapp "https://youtube.com" ;;
+  *Twitch*) fanos-launch-webapp "https://www.twitch.tv/directory/following" ;;
+  *Jellyfin*) fanos-launch-webapp "http://jellyfin.bush.local:8096/web/#/home.html" ;;
+  *X*) fanos-launch-webapp "https://x.com/home" ;;
+  *Plex*) fanos-launch-webapp "https://app.plex.tv/desktop/#!/" ;;
+  *LinkedIn*) fanos-launch-webapp "https://www.linkedin.com/feed/" ;;
+  *Gmail*) fanos-launch-webapp "https://mail.google.com/mail/u/0/#inbox" ;;
+  *Reminders*) fanos-launch-webapp "https://tasks.google.com/tasks/" ;;
+  *Drive*) fanos-launch-webapp "https://drive.google.com/drive/" ;;
+  *) show_main_menu ;;
+  esac
+}
+
+show_config_menu() {
+  case $(menu "Configuration" "  Wallpaper\n  Bindings\n  Monitors\n  Environment\n  Settings\n  Waybar Style") in
+  *Wallpaper*) $TERMINAL --app-id=fanos-config bash -c 'fanos-set-wallpaper' ;;
+  *Bindings*) $TERMINAL bash -c '$EDITOR $HOME/.config/hypr/binds.conf' ;;
+  *Monitors*) $TERMINAL bash -c '$EDITOR $HOME/.config/hypr/monitors.conf' ;;
+  *Environment*) $TERMINAL bash -c '$EDITOR $HOME/.config/hypr/env.conf' ;;
+  *Settings*) $TERMINAL bash -c '$EDITOR $HOME/.config/hypr/settings.conf' ;;
+  *Style*) $TERMINAL bash -c '$EDITOR $HOME/.config/waybar/style.css' ;;
+  *) back_to show_main_menu ;;
+  esac
+}
+
+show_learn_menu() {
+  case $(menu "Learn" "  Keybindings\n󰍛  Grok\n  Hyprland\n  Artix\n  Neovim\n󱆃  Bash") in
+  *Keybindings*) omarchy-menu-keybindings ;;
+  *Grok*) fanos-launch-webapp "https://grok.com/?ref=aiartweekly" ;;
+  *Hyprland*) fanos-launch-webapp "https://wiki.hypr.land/" ;;
+  *Artix*) fanos-launch-webapp "https://wiki.artixlinux.org/" ;;
+  *Bash*) fanos-launch-webapp "https://devhints.io/bash" ;;
+  *Neovim*) fanos-launch-webapp "https://www.lazyvim.org/keymaps" ;;
+  *) show_main_menu ;;
+  esac
+}
+
+show_system_menu() {
+  case $(menu "System" "  Lock\n󱄄  Screensaver\n󰤄  Suspend\n  Exit WM\n󰜉  Restart\n󰐥  Shutdown") in
+  *Lock*) hyprlock ;;
+  *Suspend*) loginctl suspend ;;
+  *Relaunch*) hyprctl dispatch exit ;;
+  *Restart*) loginctl reboot ;;
+  *Shutdown*) loginctl poweroff ;;
+  *) back_to show_main_menu ;;
+  esac
+}
+
+show_troubleshooting_menu() {
+  case $(menu "Troubleshooting" "  dinit User Spawn\n  GPU Screen Recording\n  Audio") in
+  *dinit*) fanos-dus-troubleshooting ;;
+  *GPU*) fanos-gsr-troubleshooting ;;
+  *Audio*) fanos-audio-troubleshooting ;;
+  *) back_to show_main_menu ;;
+  esac
+}
+
+show_main_menu() {
+  go_to_menu "$(menu "Go" "󰀻  Apps\n  Websites\n  Configuration\n󰧑  Troubleshooting\n󱓞  Learn\n  Update\n  About\n  System")"
+}
+
+go_to_menu() {
+  case "${1,,}" in
+  *apps*) $HOME/.config/rofi/launchers/type-1/launcher.sh ;;
+  *websites*) show_websites_menu ;;
+  *configuration*) show_config_menu ;;
+  *troubleshooting*) show_troubleshooting_menu ;;
+  *learn*) show_learn_menu ;;
+  *update*) fanos-launch-update ;;
+  *about*) fanos-launch-about ;;
+  *system*) show_system_menu ;;
+  esac
+}
+
+if [[ -n "$1" ]]; then
+  BACK_TO_EXIT=true
+  go_to_menu "$1"
+else
+  show_main_menu
+fi

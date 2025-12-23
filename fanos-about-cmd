@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+OS=$(cat /etc/os-release | awk 'NR==1' | sed s/NAME=\"//g | sed s/\"//g)
+CPU=$(grep 'model name' /proc/cpuinfo | awk -F': ' '{print $2}' | head -n 1)
+MEM=$(free -m | awk '/^Mem/ {print ($2)/1024}' | cut -c-5)
+GPU=$(lspci | grep -E "Advanced|NVIDIA|Intel" | grep -E "VGA|3D|Display" | awk -F': ' '{print $2}' | awk '{sub(/ \(rev [a-zA-Z0-9]+\)$/, ""); print}')
+PKG=$(pacman -Q | wc -l)
+KER=$(uname -r)
+UPT=$(uptime | awk -F, '{sub(".*up ",x,$1);print $1}')
+
+echo -e "\e[34mUSR:\e[0m	$USER\n\e[34mOS: \e[0m	$OS\n\e[34mKER:\e[0m	$KER\n\e[34mCPU:\e[0m	$CPU\n\e[34mMEM:\e[0m	$MEM GB\n\e[34mGPU:\e[0m	$GPU\n\e[34mPKG:\e[0m	$PKG Packages\n\e[34mUPT:\e[0m	$UPT"; read -n 1 -s

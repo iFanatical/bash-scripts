@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+cd $HOME/projects/window-managers
+rm -rvf oxwm/
+git clone https://github.com/tonybanters/oxwm
+cd oxwm
+cargo build --release
+echo -e "oxwm built!"
+doas rm /usr/local/bin/oxwm
+doas cp target/release/oxwm /usr/local/bin
+echo -e "oxwm installed!"

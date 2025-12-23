@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# Check if required tools are installed
+if ! command -v swaybg &> /dev/null; then
+    echo "Error: swaybg is not installed. Please install it first."
+    exit 1
+fi
+
+if ! command -v fzf &> /dev/null; then
+    echo "Error: fzf is not installed. Please install it first."
+    exit 1
+fi
+
+# Directory to scan
+PICTURES_DIR="$HOME/Pictures"
+
+# Check if Pictures directory exists
+if [ ! -d "$PICTURES_DIR" ]; then
+    echo "Error: $PICTURES_DIR does not exist."
+    exit 1
+fi
+
+# Find all image files in Pictures directory
+# Add or remove extensions as needed
+mapfile -t images < <(find "$PICTURES_DIR" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.gif" -o -iname "*.bmp" \) | sort)
+
+# Check if any images were found
+if [ ${#images[@]} -eq 0 ]; then
+    echo "No images found in $PICTURES_DIR"
+    exit 1
+fi
+
+# Use fzf to select an image
+selected_image=$(printf '%s\n' "${images[@]}" | fzf --prompt="Select an image to set as wallpaper: " --preview="catimg -w $(tput cols) {} 2>/dev/null || echo 'Preview not available'")
+
+# Check if an image was selected
+if [ -z "$selected_image" ]; then
+    echo "No image selected. Exiting."
+    exit 0
+fi
+
+# Kill any existing swaybg process
+pkill swaybg
+
+# Set the selected image as wallpaper using swaybg
+swaybg -i "$selected_image" -m fill &
+
+echo "Wallpaper set to: $selected_image"

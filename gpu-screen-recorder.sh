@@ -1,7 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # variables
-export File=-%h/.config/gpu-screen-recorder.env
 export WINDOW=screen
 export CONTAINER=mp4
 export QUALITY=40000
@@ -20,7 +19,5 @@ export ENCODER=gpu
 export RESTORE_PORTAL_SESSION=yes
 export OUTPUT_RESOLUTION=0x0
 export ADDITIONAL_ARGS=
-
-# command
 gpu-screen-recorder -v no -w "${WINDOW}" -s "${OUTPUT_RESOLUTION}" -c "${CONTAINER}" -q "${QUALITY}" -k "${CODEC}" -ac "${AUDIO_CODEC}" -a "${AUDIO_DEVICE}" -a "${SECONDARY_AUDIO_DEVICE}" -f "${FRAMERATE}" -r "${REPLAYDURATION}" -o "${OUTPUTDIR}" -df "${MAKEFOLDERS}" $ADDITIONAL_ARGS -cr "${COLOR_RANGE}" -keyint "${KEYINT}" -restore-portal-session "${RESTORE_PORTAL_SESSION}" -encoder "${ENCODER}" -bm "${BITRATE_MODE}" &
 gsr-ui launch-daemon &

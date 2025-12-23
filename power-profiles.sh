@@ -7,19 +7,16 @@ case $current_profile in
     performance)
 	dunstify -t 2000 -i system-suspend "Switching to balanced profile."
 	powerprofilesctl set balanced
-	pkill -RTMIN+4 dwmblocks
 	exit 0
 	;;
     balanced)
 	dunstify -t 2000 -i system-suspend-hibernate "Switching to power-saving profile."
 	powerprofilesctl set power-saver
-	pkill -RTMIN+4 dwmblocks
 	exit 0
 	;;
     power-saver)
 	dunstify -t 2000 -i system-reboot "Switching to performance profile."
 	powerprofilesctl set performance
-	pkill -RTMIN+4 dwmblocks
 	exit 0
 	;;
     *)

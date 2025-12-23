@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+$TERMINAL --app-id=fanos-troubleshooting -e bash -c 'dinitctl -u stop pipewire-pulse; dinitctl -u stop wireplumber; dinitctl -u restart pipewire; dinitctl -u start pipewire-pulse; dinitctl -u start wireplumber; read -n 1 -s'

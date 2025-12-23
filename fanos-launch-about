@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+$TERMINAL --app-id=fanos-about -e bash -c 'fanos-about-cmd'
+bash -c fanos-menu
