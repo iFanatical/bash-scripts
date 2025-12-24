@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
 
-cputemp=$(sensors | awk '/^CPU:/ {print $2}' | sed 's/+//;s/\..*$//')
-echo -e $cputemp"°C"
+echo "$(($(cat /sys/class/hwmon/hwmon6/temp1_input) / 1000))°C"
