@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+cd $HOME/projects/window-managers
+rm -rvf goonwm/
+git clone https://github.com/tonybanters/goonwm
+cd goonwm
+zig build -Doptimize=ReleaseSmall
+echo -e "goonwm built!"
+doas rm /usr/local/bin/goonwm
+doas cp zig-out/bin/goonwm /usr/local/bin
+echo -e "goonwm installed!"

@@ -1,5 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-TIME="$(date '+%b %d (%a) %I:%M%p')"
+TIME=$(date +"%H:%M:%S")
 
-echo -e "󱑁 $TIME"
+echo -e "^c#acb0d0^󰸗 $TIME"

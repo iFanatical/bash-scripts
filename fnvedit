@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+cd /drives/wd1TB-nvme/fallout-modding/Tools/FNVEdit\ 4\.1\.5f/
+WINEPREFIX=/drives/wd1TB-nvme/fallout-modding/Tools/pfx wine /drives/wd1TB-nvme/fallout-modding/Tools/FNVEdit\ 4\.1\.5f/fnvedit.bat
+cd -

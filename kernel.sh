@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-kernel=$(uname -r)
-echo -e  $kernel
+KERNEL=$(uname -r)
+echo -e "^c#ad8ee6^ $KERNEL"

@@ -22,9 +22,9 @@ get_uptime() {
     fi
 
     if [[ $minutes -eq 1 ]]; then
-        minutes_part="1 minute"
+        minutes_part="1 min"
     else
-        minutes_part="$minutes minutes"
+        minutes_part="$minutes mins"
     fi
 
     parts=()

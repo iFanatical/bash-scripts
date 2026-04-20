@@ -13,6 +13,10 @@ for MONITOR in "${MONITORS[@]}"; do
             echo "Launching hyprlock for DP-2"
             hyprlock -c ~/.config/hypr/hyprlock.conf &
             ;;
+        DP-5)
+            echo "Launching hyprlock for DP-5"
+            hyprlock -c ~/.config/hypr/hyprlock.conf &
+            ;;
         HDMI*)
             echo "Launching hyprlock for unknown monitor: $MONITOR"
             hyprlock -c ~/.config/hypr/hyprlock-hdmi.conf &
