@@ -51,7 +51,7 @@ get_mictoggle() {
 
 inc_vol() {
     if [[ "$(pamixer --get-mute)" == "true" ]]; then
-        toggle_mute
+        get_voltoggle
     else
         pamixer -i 5 --allow-boost --set-limit 100
     fi
@@ -59,7 +59,7 @@ inc_vol() {
 
 dec_vol() {
     if [[ "$(pamixer --get-mute)" == "true" ]]; then
-        toggle_mute
+        get_voltoggle
     else
         pamixer -d 5
     fi
