@@ -3,7 +3,6 @@
 iDIR="$HOME/.local/bin/icons"
 sDIR="$HOME/.local/bin/scripts"
 
-# Get Volume
 get_volume() {
     volume=$(pamixer --get-volume)
     if [[ "$volume" -eq "0" ]]; then
@@ -13,7 +12,6 @@ get_volume() {
     fi
 }
 
-# Get Icon
 get_icon() {
     current=$(get_volume)
     if [[ "$current" == "Muted" ]]; then
@@ -27,7 +25,6 @@ get_icon() {
     fi
 }
 
-# Notify — volume
 notify_user() {
     local vol icon
     vol=$(get_volume)
@@ -48,20 +45,18 @@ notify_user() {
             -h string:x-canonical-private-synchronous:volume_notif \
             -h int:value:"${vol%\%}" \
             " Volume" "$vol" &&
-        "$sDIR/Sounds.sh" --volume
+        "$sDIR/sounds.sh" --volume
     fi
 }
 
-# Increase Volume
 inc_volume() {
     if [[ "$(pamixer --get-mute)" == "true" ]]; then
         toggle_mute
     else
-        pamixer -i 5 --allow-boost --set-limit 150 && notify_user
+        pamixer -i 5 --allow-boost --set-limit 100 && notify_user
     fi
 }
 
-# Decrease Volume
 dec_volume() {
     if [[ "$(pamixer --get-mute)" == "true" ]]; then
         toggle_mute
@@ -70,7 +65,6 @@ dec_volume() {
     fi
 }
 
-# Toggle Mute
 toggle_mute() {
     if [[ "$(pamixer --get-mute)" == "false" ]]; then
         pamixer -m
@@ -91,7 +85,6 @@ toggle_mute() {
     fi
 }
 
-# Get Mic Icon
 get_mic_icon() {
     if [[ "$(pamixer --default-source --get-mute)" == "true" ]]; then
         echo "$iDIR/microphone-mute.png"
@@ -100,7 +93,6 @@ get_mic_icon() {
     fi
 }
 
-# Get Mic Volume
 get_mic_volume() {
     volume=$(pamixer --default-source --get-volume)
     if [[ "$(pamixer --default-source --get-mute)" == "true" ]]; then
@@ -110,7 +102,6 @@ get_mic_volume() {
     fi
 }
 
-# Notify — mic
 notify_mic_user() {
     local vol icon
     vol=$(get_mic_volume)
@@ -134,7 +125,6 @@ notify_mic_user() {
     fi
 }
 
-# Toggle Mic
 toggle_mic() {
     if [[ "$(pamixer --default-source --get-mute)" == "false" ]]; then
         pamixer --default-source -m && notify_mic_user
@@ -143,7 +133,6 @@ toggle_mic() {
     fi
 }
 
-# Increase Mic Volume
 inc_mic_volume() {
     if [[ "$(pamixer --default-source --get-mute)" == "true" ]]; then
         toggle_mic
@@ -152,7 +141,6 @@ inc_mic_volume() {
     fi
 }
 
-# Decrease Mic Volume
 dec_mic_volume() {
     if [[ "$(pamixer --default-source --get-mute)" == "true" ]]; then
         toggle_mic
@@ -161,7 +149,6 @@ dec_mic_volume() {
     fi
 }
 
-# Execute
 case "$1" in
     --get)          get_volume ;;
     --inc)          inc_volume ;;
