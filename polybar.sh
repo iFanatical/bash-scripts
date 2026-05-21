@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-killall polybar
-polybar &
+pkill polybar
+$HOME/.config/polybar/polybar-launch.sh &

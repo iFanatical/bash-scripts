@@ -1,27 +1,27 @@
 #!/usr/bin/env bash
 
 COUNT=$(dunstctl count waiting)
+ENABLED=""
+DISABLED=""
 
 case "$1" in
     --toggle)
         dunstctl set-paused toggle
-	sleep 0.1
-	kill -38 $(pidof dwmblocks)
-	;;
+        ;;
     --status)
         if [ "$COUNT" != "0" ]; then DISABLED=" $COUNT"; fi
         if dunstctl is-paused | grep -q "false"; then
-	    echo -e "^c#7aa2f7^ "
+            echo "$ENABLED"
         else
-	    echo -e "^c#f7768e^  $COUNT"
+            echo "$DISABLED"
         fi
         ;;
     *)
         if [ "$COUNT" != "0" ]; then DISABLED=" $COUNT"; fi
         if dunstctl is-paused | grep -q "false"; then
-	    echo -e "^c#7aa2f7^ "
+            echo "$ENABLED"
         else
-	    echo "^c#f7768e^  $COUNT"
+            echo "$DISABLED"
         fi
         ;;
 esac

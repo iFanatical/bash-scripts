@@ -11,7 +11,7 @@ record() {
 
   # Generic command to record at your screen dimensions
   #ffmpeg -s "$(xdpyinfo | awk '/dimensions/{print $2}')" -f x11grab -r 30 -i :0.0 -c:v h264 -qp 0 "/drives/wd8TB/videos/recordings/video_$(date '+%a__%b%d__%H_%M_%S').mkv" &
-  ffmpeg -s 2560x1440 -f x11grab -r 30 -i :0.0+1920 -c:v h264 -qp 0 "/drives/wd8TB/videos/recordings/video_$(date '+%a__%b%d__%H_%M_%S').mkv" &
+  ffmpeg -s 1920x1080 -f x11grab -r 30 -i :0.0+1920 -c:v h264 -qp 0 "/drives/wd8TB/videos/recordings/video_$(date '+%a__%b%d__%H_%M_%S').mkv" &
   echo $! > /tmp/recpid
 
   # Specify alsa device with hw:0 etc.

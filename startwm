@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# ~/.local/bin/startwm
+# usage: startwm <dwm|bspwm|i3>
+
+WM="${1:-dwm}"
+exec startx "$HOME/.xinitrc" "$WM"
