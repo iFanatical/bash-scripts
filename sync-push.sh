@@ -24,6 +24,7 @@ FOLDERS=(
     "$HOME/.local/bin"
     "$HOME/.config/nvim"
     "$HOME/.config/picom"
+    "$HOME/.config/fish"
     "$HOME/.config/qt5ct"
     "$HOME/.config/qt6ct"
     "$HOME/.config/rofi"

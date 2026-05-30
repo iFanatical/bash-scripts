@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+cd /drives/wd1TB-nvme/skyrim-modding/tools/sseedit
+WINEPREFIX=/drives/wd1TB-nvme/skyrim-modding/tools/pfx wine /drives/wd1TB-nvme/skyrim-modding/tools/sseedit/sseedit.bat
+cd -
