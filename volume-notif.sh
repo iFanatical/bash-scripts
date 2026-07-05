@@ -3,6 +3,8 @@
 iDIR="$SCRIPTS/icons"
 sDIR="$SCRIPTS/scripts"
 
+source "$SCRIPTS/bar-refresh.sh"
+
 get_volume() {
     volume=$(pamixer --get-volume)
     if [[ "$volume" -eq "0" ]]; then
@@ -151,13 +153,13 @@ dec_mic_volume() {
 
 case "$1" in
     --get)          get_volume ;;
-    --inc)          inc_volume       ; kill -45 $(pidof dwmblocks) ;;
-    --dec)          dec_volume       ; kill -45 $(pidof dwmblocks) ;;
-    --toggle)       toggle_mute      ; kill -45 $(pidof dwmblocks) ;;
-    --toggle-mic)   toggle_mic       ; kill -45 $(pidof dwmblocks) ;;
+    --inc)          inc_volume       ; refresh_bar 45 volume ;;
+    --dec)          dec_volume       ; refresh_bar 45 volume ;;
+    --toggle)       toggle_mute      ; refresh_bar 45 volume ;;
+    --toggle-mic)   toggle_mic       ; refresh_bar 45 volume ;;
     --get-icon)     get_icon ;;
     --get-mic-icon) get_mic_icon ;;
-    --mic-inc)      inc_mic_volume   ; kill -45 $(pidof dwmblocks) ;;
-    --mic-dec)      dec_mic_volume   ; kill -45 $(pidof dwmblocks) ;;
+    --mic-inc)      inc_mic_volume   ; refresh_bar 45 volume ;;
+    --mic-dec)      dec_mic_volume   ; refresh_bar 45 volume ;;
     *)              get_volume ;;
 esac

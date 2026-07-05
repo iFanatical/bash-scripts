@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
+DIR="/drives/wd-raid-8tb/videos/recordings"
+
 record() {
-  wf-recorder -o DP-2 -r 60 -f "/drives/wd4TB/videos/recordings/video_$(date '+%a__%b%d__%H_%M_%S').mkv" &
+  wf-recorder -o DP-2 -r 60 -f "$DIR/video_$(date '+%a__%b%d__%H_%M_%S').mkv" &
   echo $! > /tmp/recpid
-  ffmpeg -f alsa -i default -af "afftdn=nf=-75" "/drives/wd4TB/videos/recordings/audio_$(date '+%a__%b%d__%H_%M_%S').wav" &
+  ffmpeg -f alsa -i default -af "afftdn=nf=-75" "$DIR/audio_$(date '+%a__%b%d__%H_%M_%S').wav" &
   echo $! > /tmp/audpid
 
   echo " Rec • " > /tmp/recordingicon && pkill -SIGRTMIN+12 waybar

@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-STEAM_COMPAT_DATA_PATH="/drives/wd1TB-nvme/SteamLibrary/steamapps/compatdata/489830"
+STEAM_COMPAT_DATA_PATH="/drives/wd-sn570/SteamLibrary/steamapps/compatdata/489830"
 STEAM_COMPAT_CLIENT_INSTALL_PATH="$HOME/.steam/steam"
 PROTON="$HOME/.steam/steam/compatibilitytools.d/GE-Proton10-34/proton"
-VORTEX_EXE="/drives/wd1TB-nvme/SteamLibrary/steamapps/compatdata/489830/pfx/drive_c/Program Files/Vortex/Vortex.exe"
+#VORTEX_EXE="/drives/wd-sn570/SteamLibrary/steamapps/compatdata/489830/pfx/drive_c/Program Files/Vortex/Vortex.exe"
+VORTEX_EXE="/drives/wd-sn570/skyrim-modding/skyrim-installer/vortex-setup-2.1.1.exe"
 
 export STEAM_COMPAT_DATA_PATH
 export STEAM_COMPAT_CLIENT_INSTALL_PATH

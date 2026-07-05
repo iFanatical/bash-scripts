@@ -1,27 +1,21 @@
 #!/usr/bin/env bash
 
+source "$SCRIPTS/bar-colors.sh"
+source "$SCRIPTS/bar-refresh.sh"
+
 COUNT=$(dunstctl count waiting)
 
 case "$1" in
     --toggle)
         dunstctl set-paused toggle
-	sleep 0.1
-	kill -38 $(pidof dwmblocks)
-	;;
-    --status)
-        if [ "$COUNT" != "0" ]; then DISABLED=" $COUNT"; fi
-        if dunstctl is-paused | grep -q "false"; then
-	    echo -e "^c#7aa2f7^ "
-        else
-	    echo -e "^c#f7768e^  $COUNT"
-        fi
+        sleep 0.1
+        refresh_bar 38 dunst
         ;;
-    *)
-        if [ "$COUNT" != "0" ]; then DISABLED=" $COUNT"; fi
+    --status|*)
         if dunstctl is-paused | grep -q "false"; then
-	    echo -e "^c#7aa2f7^ "
+            echo "$(bar_color '#7aa2f7' '')"
         else
-	    echo "^c#f7768e^  $COUNT"
+            echo "$(bar_color '#f7768e' " $COUNT")"
         fi
         ;;
 esac

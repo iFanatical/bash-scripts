@@ -47,7 +47,7 @@ for FOLDER in "${FOLDERS[@]}"; do
     # Create local parent directory if it doesn't exist
     mkdir -p "$LOCAL_PARENT"
 
-    rsync -az --delete \
+    rsync -az \
         -e "ssh -i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
         "$USER@$SERVER:$REMOTE_PATH" \
         "$LOCAL_PARENT/" \

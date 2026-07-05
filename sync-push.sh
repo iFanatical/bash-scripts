@@ -45,7 +45,7 @@ for FOLDER in "${FOLDERS[@]}"; do
         RELATIVE="${FOLDER/#$HOME\//}"
         REMOTE_DIR="$REMOTE_BASE/$(dirname "$RELATIVE")"
 
-        rsync -az --delete \
+        rsync -az \
             -e "ssh -i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
             "$FOLDER" \
             "$USER@$SERVER:$REMOTE_DIR/" \
@@ -57,4 +57,4 @@ for FOLDER in "${FOLDERS[@]}"; do
     fi
 done
 
-echo "[$TIMESTAMP] Push sync complete." >> "$LOG"
+echo "[$TIMESTAMP] Push sync complete." > "$LOG"

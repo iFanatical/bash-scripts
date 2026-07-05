@@ -3,8 +3,9 @@
 iDIR="$HOME/.local/bin/icons"
 
 # DDC monitor I2C bus numbers — adjust to match 'ddcutil detect' output
-I2C_BUS1=7
-I2C_BUS2=8
+BUSES=($(ddcutil detect | grep i2c | awk -F'i2c-' '{print $2}'))
+I2C_BUS1=${BUSES[0]}
+I2C_BUS2=${BUSES[1]}
 
 # Get brightnessctl current brightness as a percentage
 get_backlight() {

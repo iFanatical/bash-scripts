@@ -7,12 +7,13 @@
 #   echo "$(bar_color '#9ece6a' '󰕥 connected')"
 #
 # detection:
-#   - $BAR env var if set (values: dwmblocks, i3blocks, none)
+#   - $BAR env var if set (values: dwmblocks, i3blocks, polybar, none)
 #   - otherwise pgrep check
 #
 # behavior:
 #   - dwmblocks: emits ^c#RRGGBB^TEXT
-#   - i3blocks:  emits <span color="#RRGGBB">TEXT</span>  (requires markup=pango)
+#   - i3blocks:  emits <span color="#RRGGBB">TEXT</span>
+#   - polybar:   emits <span color="#RRGGBB">TEXT</span>
 #   - unknown:   emits plain TEXT
 
 bar_detect() {
@@ -22,6 +23,8 @@ bar_detect() {
         echo dwmblocks
     elif pgrep -x i3blocks >/dev/null 2>&1; then
         echo i3blocks
+    elif pgrep -x polybar >/dev/null 2>&1; then
+        echo polybar
     else
         echo none
     fi
@@ -33,6 +36,7 @@ bar_color() {
     case "$(bar_detect)" in
         dwmblocks) printf '^c%s^%s' "$color" "$text" ;;
         i3blocks)  printf '<span color="%s">%s</span>' "$color" "$text" ;;
+        polybar)   printf '%%{F%s}%s%%{F-}' "$color" "$text" ;;
         *)         printf '%s' "$text" ;;
     esac
 }

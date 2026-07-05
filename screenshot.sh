@@ -4,7 +4,7 @@ SAVEDIR=${XDG_PICTURES_DIR}/screenshots
 SAVE_FULLPATH="$SAVEDIR/$FILENAME"
 
 # run screenshot command — bail out if maim fails or produces no output
-if ! maim -s > /tmp/screenshot_$$.png || [ ! -s /tmp/screenshot_$$.png ]; then
+if ! maim --noopengl -s > /tmp/screenshot_$$.png || [ ! -s /tmp/screenshot_$$.png ]; then
     rm -f /tmp/screenshot_$$.png
     exit 0
 fi
