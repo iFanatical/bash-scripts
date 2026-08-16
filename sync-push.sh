@@ -13,28 +13,28 @@ FOLDERS=(
     "$HOME/Documents"
     "$HOME/Pictures"
     "$HOME/projects"
+    "$HOME/source-files"
+    "$HOME/.local/bin"
     "$HOME/.config/alacritty"
+    "$HOME/.config/bspwm"
     "$HOME/.config/dunst"
     "$HOME/.config/eza"
     "$HOME/.config/fastfetch"
     "$HOME/.config/gtk-3.0"
     "$HOME/.config/gtk-4.0"
     "$HOME/.config/hypr"
-    "$HOME/.config/bspwm"
-    "$HOME/.local/bin"
+    "$HOME/.config/kitty"
     "$HOME/.config/nvim"
     "$HOME/.config/picom"
-    "$HOME/.config/fish"
+    "$HOME/.config/polybar"
     "$HOME/.config/qt5ct"
     "$HOME/.config/qt6ct"
+    "$HOME/.config/quickshell"
     "$HOME/.config/rofi"
     "$HOME/.config/sxhkd"
-    "$HOME/source-files"
     "$HOME/.config/vlc"
     "$HOME/.config/waybar"
-    "$HOME/.config/polybar"
     "$HOME/.config/xsettingsd"
-    "$HOME/.custom-exes"
 )
 
 echo "[$TIMESTAMP] Starting push sync to $SERVER:$REMOTE_BASE" >> "$LOG"
@@ -45,7 +45,7 @@ for FOLDER in "${FOLDERS[@]}"; do
         RELATIVE="${FOLDER/#$HOME\//}"
         REMOTE_DIR="$REMOTE_BASE/$(dirname "$RELATIVE")"
 
-        rsync -az \
+        rsync -az --delete \
             -e "ssh -i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
             "$FOLDER" \
             "$USER@$SERVER:$REMOTE_DIR/" \

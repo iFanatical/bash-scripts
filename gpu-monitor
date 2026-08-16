@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# gpu-monitor - Real-time GPU monitoring
+
+CARD=1
+SYSFS=/sys/class/drm/card${CARD}/device
+
+echo "=== AMD 7900 GRE Monitor (Ctrl+C to exit) ==="
+trap "exit" INT TERM
+
+while true; do
+    clear
+    echo "=== AMD 7900 GRE Monitor ==="
+    echo ""
+    echo "Power State:      $(cat $SYSFS/power_dpm_state 2>/dev/null || echo 'N/A')"
+    echo "Perf Level:       $(cat $SYSFS/pp_performance_level 2>/dev/null || echo 'N/A')"
+    
+    echo ""
+    echo "Power:            $(cat $SYSFS/power1_input 2>/dev/null | awk '{printf "%.1fW", $1/1000}') / $(cat $SYSFS/power1_cap_max 2>/dev/null | awk '{printf "%.1fW", $1/1000}')"
+    
+    echo ""
+    echo "Temperature:"
+    for f in $SYSFS/hwmon*/temp*_input; do
+        if [ -f "$f" ]; then
+            echo "  $(basename $f _input): $(cat $f) m°C"
+        fi
+    done
+    
+    echo ""
+    echo "Updating every 2s... (Ctrl+C to exit)"
+    sleep 2
+done
