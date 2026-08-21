@@ -1,0 +1,14 @@
+#!/bin/sh
+# Dev launcher for the in-tree fanhypr-qs build (no `sudo make install` yet).
+#
+# The bar execs its helper scripts by bare name, so the repo's scripts/ dir
+# has to be on the PATH it inherits. Kept as a script rather than an inline
+# `exec-once = PATH=... binary` because Hyprland substitutes $NAME in config
+# values as its own variables -- $PATH included -- which mangles the line.
+#
+# Once `sudo make install` has run, this is unnecessary: replace the
+# exec-once with plain `fanhypr-qs-shell --no-duplicate` and delete this.
+REPO="$HOME/projects/window-managers/fanhypr-qs"
+PATH="$REPO/scripts:$PATH"
+export PATH
+exec "$REPO/shell/fanhypr-qs-shell" "$@"

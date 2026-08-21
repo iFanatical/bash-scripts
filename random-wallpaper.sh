@@ -56,14 +56,11 @@ fi
 RANDOM_INDEX=$(( RANDOM % ${#CANDIDATES[@]} ))
 CHOSEN="${CANDIDATES[$RANDOM_INDEX]}"
 
-# Make sure feh can find the X display when run from cron/.xinitrc
-export DISPLAY="${DISPLAY:-:0}"
-
-if command -v feh >/dev/null 2>&1; then
-    feh --bg-fill "$CHOSEN"
+if command -v awww >/dev/null 2>&1; then
+    awww img "$CHOSEN"
     printf '%s' "$CHOSEN" > "$STATE_FILE"
     log "Set wallpaper: $CHOSEN"
 else
-    log "ERROR: feh is not installed"
+    log "ERROR: awww is not installed"
     exit 1
 fi
