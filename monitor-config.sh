@@ -6,8 +6,6 @@ if ls /sys/class/power_supply/BAT* &>/dev/null; then
     echo "Applying saturation..."
     vibrant-cli eDP-1 1.5
     xrandr --output eDP-1 --primary
-
-    random-wallpaper.sh
  
     echo "Done."
 else
@@ -30,8 +28,6 @@ else
     vibrant-cli DisplayPort-0 1.5
  
     xrandr --output DisplayPort-1 --primary
-
-    random-wallpaper.sh
  
     echo "Done."
 fi
