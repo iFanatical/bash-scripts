@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /home/fanatical/projects/sync/.venv/bin/python -m synctool.cli "$@"
