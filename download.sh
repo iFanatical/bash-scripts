@@ -1,1 +1,0 @@
-/home/fanatical/projects/lucida-downloader/download.sh
